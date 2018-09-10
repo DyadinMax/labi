@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">mpdis</string>
+    <string name="app_created">This app was created by Victor Statko</string>
+    <string name="student">(student of group № 620603)</string>
+    <string name="help">You can navigate in the application using the buttons at the bottom of the screen.</string>
+    <string name="click_me">Click me.</string>
+    <string name="click_cat">Cat.</string>
+</resources>
