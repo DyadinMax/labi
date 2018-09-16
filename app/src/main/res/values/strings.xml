@@ -5,6 +5,20 @@
     <string name="help">You can navigate in the application using the buttons at the bottom of the screen.</string>
     <string name="click_me">Click me.</string>
     <string name="click_cat">Cat.</string>
-    <string name="github_link"><a href="https://github.com/VictorStatko">@VictorStatko</a></string>
-    <string name="author">App author</string>
+    <string name="page1_title">Practice 1</string>
+    <string name="page2_title">Practice 2</string>
+    <string name="next">Next</string>
+    <string name="prev">Prev</string>
+    <string name="first_name">First name</string>
+    <string name="surname">Surname</string>
+    <string name="patronymic">Patronymic</string>
+    <string name="group_number">Group Number</string>
+    <string name="faculty">Faculty</string>
+    <string name="students">Student list</string>
+    <string name="validate_first_name">First name should not be empty!</string>
+    <string name="validate_surname">Surname should not be empty!</string>
+    <string name="validate_patronymic">Patronymic should not be empty!</string>
+    <string name="validate_group_number">Group number should not be empty!</string>
+    <string name="validate_faculty">Faculty number should not be empty!</string>
+    <string name="github"><a href="https://github.com/VictorStatko">github.com/VictorStatko</a></string>
 </resources>

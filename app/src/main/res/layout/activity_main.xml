@@ -9,11 +9,11 @@
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="53dp"
         android:layout_marginBottom="30dp"
         android:layout_marginTop="28dp"
         android:text="@string/app_created"
-        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        app:layout_constraintBottom_toTopOf="@+id/clickMe"
         app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -30,7 +30,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/Button01"
+        android:id="@+id/catButton"
         android:layout_width="173dp"
         android:layout_height="173dp"
         android:layout_marginBottom="247dp"
@@ -46,24 +46,23 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/hiddenText"
         android:layout_width="325dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
+        android:alpha="0.0"
         android:text="@string/help"
-        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Button01" />
+        app:layout_constraintTop_toBottomOf="@+id/catButton" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/clickMe"
         android:layout_width="121dp"
         android:layout_height="0dp"
         android:layout_marginBottom="339dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
         android:contentDescription="@string/click_me"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -71,23 +70,14 @@
         app:srcCompat="@drawable/click_me" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/buttonNext"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="28dp"
-        android:text="Button"
+        android:text="@string/next"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="38dp"
-        android:text="Button"
-        app:layout_constraintStart_toStartOf="@+id/textView3"
-        app:layout_constraintTop_toTopOf="@+id/textView3" />
 
 </android.support.constraint.ConstraintLayout>
