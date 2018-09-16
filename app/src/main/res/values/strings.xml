@@ -7,6 +7,12 @@
     <string name="click_cat">Cat.</string>
     <string name="page1_title">Practice 1</string>
     <string name="page2_title">Practice 2</string>
+    <string name="page3_title">Practice 3</string>
+    <string name="page4_title">Practice 4</string>
+    <string name="page5_title">Practice 5</string>
+    <string name="page6_title">Practice 6</string>
+    <string name="page7_title">Practice 7</string>
+    <string name="page8_title">Practice 8</string>
     <string name="next">Next</string>
     <string name="prev">Prev</string>
     <string name="first_name">First name</string>
@@ -21,4 +27,6 @@
     <string name="validate_group_number">Group number should not be empty!</string>
     <string name="validate_faculty">Faculty number should not be empty!</string>
     <string name="github"><a href="https://github.com/VictorStatko">github.com/VictorStatko</a></string>
+    <string name="animate">Animate</string>
+    <string name="duration">Duration</string>
 </resources>

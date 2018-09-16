@@ -24,6 +24,7 @@ public class ThirdActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_third);
+        setTitle(getResources().getString(R.string.page3_title));
         final Random rnd = new Random();
         infoButton = findViewById(R.id.button14);
         infoButton.setBackgroundColor(Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256)));
@@ -77,7 +78,8 @@ public class ThirdActivity extends AppCompatActivity {
             buttonNext.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    Intent page = new Intent(ThirdActivity.this, FourthActivity.class);
+                    startActivity(page);
                 }
             });
         }
