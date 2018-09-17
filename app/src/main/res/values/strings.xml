@@ -29,4 +29,5 @@
     <string name="github"><a href="https://github.com/VictorStatko">github.com/VictorStatko</a></string>
     <string name="animate">Animate</string>
     <string name="duration">Duration</string>
+    <string name="select_photo">Select photo</string>
 </resources>

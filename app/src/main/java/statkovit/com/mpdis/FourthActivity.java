@@ -49,7 +49,8 @@ public class FourthActivity extends AppCompatActivity {
         buttonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent page = new Intent(FourthActivity.this, FifthActivity.class);
+                startActivity(page);
             }
         });
         animateButton.setOnClickListener(new View.OnClickListener() {
