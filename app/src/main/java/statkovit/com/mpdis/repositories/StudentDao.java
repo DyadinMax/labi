@@ -19,12 +19,6 @@ public interface StudentDao {
     @Insert
     void insert(Student student);
 
-    @Update
-    void update(Student student);
-
-    @Delete
-    void delete(Student student);
-
     @Query("delete from student")
     void deleteAll();
 

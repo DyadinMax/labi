@@ -23,6 +23,7 @@ public class SecondActivity extends AppCompatActivity {
 
     private List<Student> students = new ArrayList<>();
     private SimpleAdapter sAdapter;
+    private boolean db = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +31,11 @@ public class SecondActivity extends AppCompatActivity {
         setContentView(R.layout.activity_second);
         setTitle(getResources().getString(R.string.page2_title));
         try {
-            students = new allStudentsAsyncTask().execute().get();
-            System.out.println(students);
+            if (db) {
+                students = new allStudentsAsyncTask().execute().get();
+            } else {
+
+            }
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
