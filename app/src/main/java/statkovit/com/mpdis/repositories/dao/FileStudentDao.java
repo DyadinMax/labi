@@ -19,7 +19,7 @@ import statkovit.com.mpdis.entities.Student;
 import statkovit.com.mpdis.repositories.StudentRepository;
 
 public class FileStudentDao implements StudentRepository {
-    private static final String filePath = Environment
+    public static final String filePath = Environment
             .getExternalStorageDirectory().getPath() + "/students.txt";
 
     @Override
