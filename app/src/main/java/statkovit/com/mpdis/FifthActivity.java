@@ -36,8 +36,8 @@ public class FifthActivity extends AppCompatActivity {
         buttonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Intent page = new Intent(FifthActivity.this, SixthActivity.class);
-                startActivity(page);*/
+                Intent page = new Intent(FifthActivity.this, SeventhActivity.class);
+                startActivity(page);
             }
         });
         buttonSelect.setOnClickListener(new View.OnClickListener() {
