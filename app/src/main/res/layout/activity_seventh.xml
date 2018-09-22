@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:id="@+id/linearLayout4"
+        android:id="@+id/navigation"
         android:layout_width="0dp"
         android:layout_height="52dp"
         android:layout_marginBottom="8dp"

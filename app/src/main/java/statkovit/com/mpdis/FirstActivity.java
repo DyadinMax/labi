@@ -10,7 +10,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class FirstActivity extends AppCompatActivity {
     private TextView hiddenText;
     private ImageView clickMe;
     private ImageButton catButton;
@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         buttonNext.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent homepage = new Intent(MainActivity.this, SecondActivity.class);
+                Intent homepage = new Intent(FirstActivity.this, SecondActivity.class);
                 startActivity(homepage);
             }
         });

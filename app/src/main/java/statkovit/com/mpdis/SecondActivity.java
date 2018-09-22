@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -28,23 +29,24 @@ import statkovit.com.mpdis.entities.Student;
 import statkovit.com.mpdis.repositories.StudentRepository;
 import statkovit.com.mpdis.repositories.dao.FileStudentDao;
 
-public class SecondActivity extends AppCompatActivity {
+public class SecondActivity extends AppCompatActivity implements View.OnClickListener {
 
     private List<Student> students = new ArrayList<>();
     private SimpleAdapter sAdapter;
-    private static boolean db = true;
+    private static boolean currentDatabaseSQLite = true;
     private static StudentRepository studentRepository =
             App.getInstance().getDatabase().getSQLiteStudentDao();
     private static File file;
     private Button buttonDb;
     private static final String filePath = Environment
             .getExternalStorageDirectory().getPath() + "/students.txt";
+    private TextView typeView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
-        setTitle(getResources().getString(R.string.page2_title));
+        setTitle(R.string.page2_title);
         if (ContextCompat.checkSelfPermission(SecondActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(SecondActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         }
@@ -64,42 +66,54 @@ public class SecondActivity extends AppCompatActivity {
         initListView();
         initAddButton();
         initDeleteAllButton();
-        Button buttonPrev = findViewById(R.id.button5);
-        Button buttonNext = findViewById(R.id.button6);
-        buttonDb = findViewById(R.id.button200);
-        buttonPrev.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent page = new Intent(SecondActivity.this, MainActivity.class);
-                startActivity(page);
-            }
-        });
+        Button buttonPrev = findViewById(R.id.prevActivity);
+        Button buttonNext = findViewById(R.id.nextActivity);
+        buttonDb = findViewById(R.id.changeDatabase);
+        typeView = findViewById(R.id.dbType);
+        if (currentDatabaseSQLite) {
+            typeView.setText(R.string.sqlite);
+        } else {
+            typeView.setText(R.string.file);
+        }
+        buttonPrev.setOnClickListener(this);
+        buttonNext.setOnClickListener(this);
+        buttonDb.setOnClickListener(this);
+    }
 
-        buttonNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.changeDatabase: {
+                changeDatabase();
+                break;
+            }
+            case R.id.prevActivity: {
+                Intent page = new Intent(SecondActivity.this, FirstActivity.class);
+                startActivity(page);
+                break;
+            }
+            case R.id.nextActivity: {
                 Intent page = new Intent(SecondActivity.this, ThirdActivity.class);
                 startActivity(page);
+                break;
             }
-        });
-        buttonDb.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (db) {
-                    studentRepository = new FileStudentDao();
-                } else {
-                    studentRepository = App.getInstance().getDatabase().getSQLiteStudentDao();
-                }
-                db = !db;
-                Intent intent = getIntent();
-                finish();
-                startActivity(intent);
-            }
-        });
+        }
+    }
+
+    private void changeDatabase() {
+        if (currentDatabaseSQLite) {
+            studentRepository = new FileStudentDao();
+        } else {
+            studentRepository = App.getInstance().getDatabase().getSQLiteStudentDao();
+        }
+        currentDatabaseSQLite = !currentDatabaseSQLite;
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
     }
 
     private void initListView() {
-        ListView listView = findViewById(R.id.listView_people);
+        ListView listView = findViewById(R.id.peopleList);
         String[] columns = {"surname", "firstName", "patronymic", "groupNumber", "faculty"
         };
         int[] resourceIds = {
@@ -127,12 +141,12 @@ public class SecondActivity extends AppCompatActivity {
     }
 
     private void initAddButton() {
-        Button button = findViewById(R.id.button_addPerson);
-        final EditText firstName = findViewById(R.id.editText);
-        final EditText secondName = findViewById(R.id.editText2);
-        final EditText patrynomic = findViewById(R.id.editText3);
-        final EditText faculty = findViewById(R.id.editText4);
-        final EditText groupNumber = findViewById(R.id.editText5);
+        Button button = findViewById(R.id.addPerson);
+        final EditText firstName = findViewById(R.id.firstName);
+        final EditText secondName = findViewById(R.id.surname);
+        final EditText patrynomic = findViewById(R.id.patrynomic);
+        final EditText faculty = findViewById(R.id.faculty);
+        final EditText groupNumber = findViewById(R.id.groupNumber);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -178,7 +192,7 @@ public class SecondActivity extends AppCompatActivity {
 
 
     private void initDeleteAllButton() {
-        Button button = findViewById(R.id.button_deleteAll);
+        Button button = findViewById(R.id.deleteAll);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
