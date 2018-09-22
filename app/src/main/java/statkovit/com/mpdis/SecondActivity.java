@@ -1,8 +1,13 @@
 package statkovit.com.mpdis;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +16,8 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,24 +25,39 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import statkovit.com.mpdis.entities.Student;
+import statkovit.com.mpdis.repositories.StudentRepository;
+import statkovit.com.mpdis.repositories.dao.FileStudentDao;
 
 public class SecondActivity extends AppCompatActivity {
 
     private List<Student> students = new ArrayList<>();
     private SimpleAdapter sAdapter;
-    private boolean db = true;
+    private static boolean db = true;
+    private static StudentRepository studentRepository =
+            App.getInstance().getDatabase().getSQLiteStudentDao();
+    private static File file;
+    private Button buttonDb;
+    private static final String filePath = Environment
+            .getExternalStorageDirectory().getPath() + "/students.txt";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
         setTitle(getResources().getString(R.string.page2_title));
-        try {
-            if (db) {
-                students = new allStudentsAsyncTask().execute().get();
-            } else {
-
+        if (ContextCompat.checkSelfPermission(SecondActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(SecondActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+        }
+        file = new File(filePath);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+        }
+        try {
+            students = new allStudentsAsyncTask().execute().get();
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
@@ -44,6 +66,7 @@ public class SecondActivity extends AppCompatActivity {
         initDeleteAllButton();
         Button buttonPrev = findViewById(R.id.button5);
         Button buttonNext = findViewById(R.id.button6);
+        buttonDb = findViewById(R.id.button200);
         buttonPrev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,6 +80,20 @@ public class SecondActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent page = new Intent(SecondActivity.this, ThirdActivity.class);
                 startActivity(page);
+            }
+        });
+        buttonDb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (db) {
+                    studentRepository = new FileStudentDao();
+                } else {
+                    studentRepository = App.getInstance().getDatabase().getSQLiteStudentDao();
+                }
+                db = !db;
+                Intent intent = getIntent();
+                finish();
+                startActivity(intent);
             }
         });
     }
@@ -157,11 +194,11 @@ public class SecondActivity extends AppCompatActivity {
 
         @Override
         protected List<Student> doInBackground(Void... voids) {
-            return App.getInstance().getDatabase().getStudentDao().getAll();
+            return studentRepository.getAll();
         }
     }
 
-    private static class insertStudentAsyncTask extends AsyncTask<Void, Void, Student> {
+    private static class insertStudentAsyncTask extends AsyncTask<Void, Void, Void> {
         private Student student;
 
         public insertStudentAsyncTask(Student student) {
@@ -169,16 +206,16 @@ public class SecondActivity extends AppCompatActivity {
         }
 
         @Override
-        protected Student doInBackground(Void... voids) {
-            App.getInstance().getDatabase().getStudentDao().insert(student);
-            return student;
+        protected Void doInBackground(Void... voids) {
+            studentRepository.insert(student);
+            return null;
         }
     }
 
     private static class deleteAllStudentsAsyncTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
-            App.getInstance().getDatabase().getStudentDao().deleteAll();
+            studentRepository.deleteAll();
             return null;
         }
     }

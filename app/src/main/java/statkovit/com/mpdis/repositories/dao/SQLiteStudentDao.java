@@ -1,17 +1,16 @@
-package statkovit.com.mpdis.repositories;
+package statkovit.com.mpdis.repositories.dao;
 
 import android.arch.persistence.room.Dao;
-import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
-import android.arch.persistence.room.Update;
 
 import java.util.List;
 
 import statkovit.com.mpdis.entities.Student;
+import statkovit.com.mpdis.repositories.StudentRepository;
 
 @Dao
-public interface StudentDao {
+public interface SQLiteStudentDao extends StudentRepository {
 
     @Query("SELECT * FROM student")
     List<Student> getAll();
