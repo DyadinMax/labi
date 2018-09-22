@@ -80,13 +80,13 @@ public class SeventhActivity extends AppCompatActivity {
                 startActivity(page);
             }
         });
-       /* buttonNext.setOnClickListener(new View.OnClickListener() {
+        buttonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent page = new Intent(FifthActivity.this, SeventhActivity.class);
+                Intent page = new Intent(SeventhActivity.this, EighthActivity.class);
                 startActivity(page);
             }
-        });*/
+        });
         contactTextView = findViewById(R.id.textView);
 
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_CONTACTS)
