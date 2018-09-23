@@ -25,6 +25,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -118,7 +119,6 @@ public class SeventhActivity extends AppCompatActivity implements View.OnClickLi
         if (ActivityCompat.checkSelfPermission(SeventhActivity.this, android.Manifest.permission.WRITE_CONTACTS)
                 == PackageManager.PERMISSION_GRANTED) {
             writeContact(name.getText().toString(), number.getText().toString());
-            reload();
         } else {
             ActivityCompat.requestPermissions(SeventhActivity.this, new String[]{android.Manifest.permission.WRITE_CONTACTS},
                     REQUEST_WRITE_CONTACTS);
@@ -169,9 +169,6 @@ public class SeventhActivity extends AppCompatActivity implements View.OnClickLi
             case REQUEST_WRITE_CONTACTS: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     writeContact(name.getText().toString(), number.getText().toString());
-                    Intent intent = getIntent();
-                    finish();
-                    startActivity(intent);
                 }
                 break;
             }
@@ -186,32 +183,46 @@ public class SeventhActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void writeContact(String displayName, String number) {
-        ArrayList<ContentProviderOperation> contentProviderOperations = new ArrayList<>();
-        //insert raw contact using RawContacts.CONTENT_URI
-        contentProviderOperations
-                .add(ContentProviderOperation.newInsert(ContactsContract.RawContacts.CONTENT_URI)
-                        .withValue(ContactsContract.RawContacts.ACCOUNT_TYPE, null)
-                        .withValue(ContactsContract.RawContacts.ACCOUNT_NAME, null)
-                        .build());
-        //insert contact display name using Data.CONTENT_URI
-        contentProviderOperations
-                .add(ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
-                        .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
-                        .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
-                        .withValue(ContactsContract.Contacts.DISPLAY_NAME, displayName)
-                        .build());
-        //insert mobile number using Data.CONTENT_URI
-        contentProviderOperations.add(ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
-                .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
-                .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
-                .withValue(ContactsContract.CommonDataKinds.Phone.NUMBER, number)
-                .withValue(ContactsContract.CommonDataKinds.Phone.TYPE, ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE)
-                .build());
-        try {
-            getApplicationContext().getContentResolver().
-                    applyBatch(ContactsContract.AUTHORITY, contentProviderOperations);
-        } catch (RemoteException | OperationApplicationException e) {
-            e.printStackTrace();
+        Toast toast;
+        String text = null;
+        if (displayName.isEmpty()) {
+            text = getResources().getString(R.string.validate_name);
+        } else if (number.isEmpty()) {
+            text = getResources().getString(R.string.validate_number);
+        }
+        if (text != null) {
+            toast = Toast.makeText(getApplicationContext(),
+                    text, Toast.LENGTH_SHORT);
+            toast.show();
+        } else {
+            ArrayList<ContentProviderOperation> contentProviderOperations = new ArrayList<>();
+            //insert raw contact using RawContacts.CONTENT_URI
+            contentProviderOperations
+                    .add(ContentProviderOperation.newInsert(ContactsContract.RawContacts.CONTENT_URI)
+                            .withValue(ContactsContract.RawContacts.ACCOUNT_TYPE, null)
+                            .withValue(ContactsContract.RawContacts.ACCOUNT_NAME, null)
+                            .build());
+            //insert contact display name using Data.CONTENT_URI
+            contentProviderOperations
+                    .add(ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
+                            .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+                            .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
+                            .withValue(ContactsContract.Contacts.DISPLAY_NAME, displayName)
+                            .build());
+            //insert mobile number using Data.CONTENT_URI
+            contentProviderOperations.add(ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
+                    .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+                    .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
+                    .withValue(ContactsContract.CommonDataKinds.Phone.NUMBER, number)
+                    .withValue(ContactsContract.CommonDataKinds.Phone.TYPE, ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE)
+                    .build());
+            try {
+                getApplicationContext().getContentResolver().
+                        applyBatch(ContactsContract.AUTHORITY, contentProviderOperations);
+            } catch (RemoteException | OperationApplicationException e) {
+                e.printStackTrace();
+            }
+            reload();
         }
     }
 

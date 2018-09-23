@@ -11,7 +11,7 @@ import android.widget.EditText;
 
 import statkovit.com.mpdis.R;
 
-public class EighthActivity extends AppCompatActivity {
+public class EighthActivity extends AppCompatActivity implements View.OnClickListener {
     private Button buttonPrev;
     private EditText url;
     private Button buttonGo;
@@ -24,53 +24,63 @@ public class EighthActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eighth);
-        buttonPrev = findViewById(R.id.button8);
-        url = findViewById(R.id.editText10);
-        buttonGo = findViewById(R.id.button22);
+        setTitle(R.string.page8_title);
+        initButtons();
+        webView.setWebViewClient(new MyBrowser());
+    }
+
+    private void initButtons() {
+        buttonPrev = findViewById(R.id.prevActivity);
+        url = findViewById(R.id.url);
+        buttonGo = findViewById(R.id.go);
         webView = findViewById(R.id.webView);
-        clearButton = findViewById(R.id.button23);
-        nextPageButton = findViewById(R.id.button24);
-        prevPageButton = findViewById(R.id.button26);
-        buttonPrev.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        clearButton = findViewById(R.id.clear);
+        nextPageButton = findViewById(R.id.nextPage);
+        prevPageButton = findViewById(R.id.prevPage);
+        buttonPrev.setOnClickListener(this);
+        buttonGo.setOnClickListener(this);
+        clearButton.setOnClickListener(this);
+        nextPageButton.setOnClickListener(this);
+        prevPageButton.setOnClickListener(this);
+    }
+
+    private void goToTheLink() {
+        String webUrl = url.getText().toString();
+        if (!webUrl.startsWith("https://") && !webUrl.startsWith("http://")) {
+            webUrl = "https://" + webUrl;
+        }
+        webView.getSettings().setLoadsImagesAutomatically(true);
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+        webView.loadUrl(webUrl);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.prevActivity: {
                 Intent page = new Intent(EighthActivity.this, SeventhActivity.class);
                 startActivity(page);
+                break;
             }
-        });
-        webView.setWebViewClient(new MyBrowser());
-        buttonGo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String urll = url.getText().toString();
-
-                webView.getSettings().setLoadsImagesAutomatically(true);
-                webView.getSettings().setJavaScriptEnabled(true);
-                webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-                webView.loadUrl(urll);
+            case R.id.go: {
+                goToTheLink();
+                break;
             }
-        });
-
-        clearButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            case R.id.clear: {
                 webView.clearHistory();
+                break;
             }
-        });
-
-        nextPageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            case R.id.nextPage: {
                 webView.goForward();
+                break;
             }
-        });
-
-        prevPageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            case R.id.prevPage: {
                 webView.goBack();
+                break;
             }
-        });
+
+        }
     }
 
     private class MyBrowser extends WebViewClient {

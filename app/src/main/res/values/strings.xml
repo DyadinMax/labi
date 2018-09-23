@@ -26,6 +26,8 @@
     <string name="validate_patronymic">Patronymic should not be empty!</string>
     <string name="validate_group_number">Group number should not be empty!</string>
     <string name="validate_faculty">Faculty number should not be empty!</string>
+    <string name="validate_name">Name should not be empty!</string>
+    <string name="validate_number">Phone number should not be empty!</string>
     <string name="github"><a href="https://github.com/VictorStatko">github.com/VictorStatko</a></string>
     <string name="animate">Animate</string>
     <string name="duration">Duration</string>
@@ -45,4 +47,7 @@
     <string name="camera">Camera</string>
     <string name="yes">yes</string>
     <string name="no">no</string>
+    <string name="url">url</string>
+    <string name="go">go</string>
+    <string name="clear">clear</string>
 </resources>
