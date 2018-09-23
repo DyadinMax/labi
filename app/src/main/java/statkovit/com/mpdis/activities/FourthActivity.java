@@ -33,7 +33,7 @@ public class FourthActivity extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fourth);
-        setTitle(getResources().getString(R.string.page4_title));
+        setTitle(R.string.page4_title);
         initButtons();
         ConstraintLayout constraintLayout = findViewById(R.id.constraint);
         ViewTreeObserver observer = constraintLayout.getViewTreeObserver();

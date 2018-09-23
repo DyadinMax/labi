@@ -5,6 +5,7 @@
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusableInTouchMode="true"
     android:orientation="vertical">
 
 
@@ -14,13 +15,13 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="60dp"
         android:layout_marginStart="56dp"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="16dp"
         android:text="@string/students"
         android:textAlignment="center"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/changeDatabase"
-        app:layout_constraintHorizontal_bias="0.678"
+        app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_conversion_absoluteHeight="17dp"

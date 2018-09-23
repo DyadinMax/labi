@@ -36,4 +36,13 @@
     <string name="add_person">add person</string>
     <string name="delete_all">delete all</string>
     <string name="developer_info">about me</string>
+    <string name="wifi">Wifi enabled:</string>
+    <string name="battery_value">Battery value:</string>
+    <string name="name">Name</string>
+    <string name="number">Number</string>
+    <string name="add_button">add</string>
+    <string name="contacts">Phone contact list</string>
+    <string name="camera">Camera</string>
+    <string name="yes">yes</string>
+    <string name="no">no</string>
 </resources>

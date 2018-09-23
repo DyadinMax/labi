@@ -7,7 +7,7 @@
     tools:context=".activities.FirstActivity">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/listName"
         android:layout_width="wrap_content"
         android:layout_height="53dp"
         android:layout_marginBottom="30dp"
@@ -42,7 +42,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/listName"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
@@ -66,7 +66,7 @@
         android:contentDescription="@string/click_me"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/listName"
         app:srcCompat="@drawable/click_me" />
 
     <Button
