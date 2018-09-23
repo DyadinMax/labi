@@ -1,4 +1,4 @@
-package statkovit.com.mpdis;
+package statkovit.com.mpdis.activities;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import java.util.Random;
+
+import statkovit.com.mpdis.R;
 
 public class FourthActivity extends AppCompatActivity {
     private ImageView footballBall;

@@ -1,4 +1,4 @@
-package statkovit.com.mpdis;
+package statkovit.com.mpdis.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
+
+import statkovit.com.mpdis.R;
 
 public class EighthActivity extends AppCompatActivity {
     private Button buttonPrev;

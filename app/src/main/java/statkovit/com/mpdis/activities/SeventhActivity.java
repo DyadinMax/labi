@@ -1,4 +1,4 @@
-package statkovit.com.mpdis;
+package statkovit.com.mpdis.activities;
 
 import android.Manifest;
 import android.content.BroadcastReceiver;
@@ -25,6 +25,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
+import statkovit.com.mpdis.R;
 
 public class SeventhActivity extends AppCompatActivity {
     private Button buttonPrev;

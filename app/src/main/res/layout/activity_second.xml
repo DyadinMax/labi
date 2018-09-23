@@ -2,7 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linearLayout3"
+    android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -54,7 +54,7 @@
 
     <EditText
         android:id="@+id/surname"
-        android:layout_width="128dp"
+        android:layout_width="119dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/surname"
@@ -67,7 +67,7 @@
 
     <EditText
         android:id="@+id/patrynomic"
-        android:layout_width="0dp"
+        android:layout_width="124dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"

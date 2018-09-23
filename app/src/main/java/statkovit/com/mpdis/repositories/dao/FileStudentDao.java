@@ -1,10 +1,6 @@
 package statkovit.com.mpdis.repositories.dao;
 
-import android.Manifest;
-import android.app.Activity;
-import android.content.pm.PackageManager;
 import android.os.Environment;
-import android.support.v4.content.ContextCompat;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -19,31 +15,29 @@ import statkovit.com.mpdis.entities.Student;
 import statkovit.com.mpdis.repositories.StudentRepository;
 
 public class FileStudentDao implements StudentRepository {
-    public static final String filePath = Environment
+    public static final String FILE_PATH = Environment
             .getExternalStorageDirectory().getPath() + "/students.txt";
 
     @Override
     public List<Student> getAll() {
         List<Student> list = new ArrayList<>();
-        String tmp;
-        try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
-            while ((tmp = bufferedReader.readLine()) != null) {
+        String str;
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
+            while ((str = reader.readLine()) != null) {
                 Student student = new Student();
-                student.setId(Long.parseLong(tmp));
-                tmp = bufferedReader.readLine();
-                student.setSurname(tmp);
-                tmp = bufferedReader.readLine();
-                student.setFirstName(tmp);
-                tmp = bufferedReader.readLine();
-                student.setPatronymic(tmp);
-                tmp = bufferedReader.readLine();
-                student.setGroupNumber(tmp);
-                tmp = bufferedReader.readLine();
-                student.setFaculty(tmp);
+                student.setId(Long.parseLong(str));
+                str = reader.readLine();
+                student.setSurname(str);
+                str = reader.readLine();
+                student.setFirstName(str);
+                str = reader.readLine();
+                student.setPatronymic(str);
+                str = reader.readLine();
+                student.setGroupNumber(str);
+                str = reader.readLine();
+                student.setFaculty(str);
                 list.add(student);
             }
-            bufferedReader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -52,38 +46,30 @@ public class FileStudentDao implements StudentRepository {
 
     @Override
     public void insert(Student student) {
-            try {
-                File file = new File(filePath);
-                if (!file.exists()) {
-                    file.createNewFile();
-                }
-                FileWriter fileWriter = new FileWriter(file.getAbsoluteFile(), true);
-                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-                bufferedWriter.write(String.valueOf(student.getId()));
-                bufferedWriter.newLine();
-                bufferedWriter.write(student.getSurname());
-                bufferedWriter.newLine();
-                bufferedWriter.write(student.getFirstName());
-                bufferedWriter.newLine();
-                bufferedWriter.write(student.getPatronymic());
-                bufferedWriter.newLine();
-                bufferedWriter.write(student.getGroupNumber());
-                bufferedWriter.newLine();
-                bufferedWriter.write(student.getFaculty());
-                bufferedWriter.newLine();
-                bufferedWriter.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH, true))) {
+            writer.write(String.valueOf(student.getId()));
+            writer.newLine();
+            writer.write(student.getSurname());
+            writer.newLine();
+            writer.write(student.getFirstName());
+            writer.newLine();
+            writer.write(student.getPatronymic());
+            writer.newLine();
+            writer.write(student.getGroupNumber());
+            writer.newLine();
+            writer.write(student.getFaculty());
+            writer.newLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void deleteAll() {
-        File file = new File(filePath);
+        File file = new File(FILE_PATH);
         if (file.exists()) {
-            try {
-                FileWriter fileWriter = new FileWriter(file.getAbsoluteFile());
-                fileWriter.write("");
+            try (FileWriter writer = new FileWriter(file.getAbsoluteFile())) {
+                writer.write("");
             } catch (IOException e) {
                 e.printStackTrace();
             }

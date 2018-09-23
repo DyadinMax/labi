@@ -1,4 +1,4 @@
-package statkovit.com.mpdis;
+package statkovit.com.mpdis.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import statkovit.com.mpdis.R;
 
 public class FirstActivity extends AppCompatActivity {
     private TextView hiddenText;

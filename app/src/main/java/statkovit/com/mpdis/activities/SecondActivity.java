@@ -1,4 +1,4 @@
-package statkovit.com.mpdis;
+package statkovit.com.mpdis.activities;
 
 import android.Manifest;
 import android.content.Intent;
@@ -25,11 +25,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
+import statkovit.com.mpdis.App;
+import statkovit.com.mpdis.R;
 import statkovit.com.mpdis.entities.Student;
 import statkovit.com.mpdis.repositories.StudentRepository;
 import statkovit.com.mpdis.repositories.dao.FileStudentDao;
 
-import static statkovit.com.mpdis.repositories.dao.FileStudentDao.filePath;
+import static statkovit.com.mpdis.repositories.dao.FileStudentDao.FILE_PATH;
 
 public class SecondActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -58,14 +60,13 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_second);
         setTitle(R.string.page2_title);
         initButtons();
-        initListView();
         initFileDatabase();
         try {
             students = new allStudentsAsyncTask().execute().get();
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-
+        initListView();
         if (currentDatabaseSQLite) {
             databaseType.setText(R.string.sqlite);
         } else {
@@ -114,7 +115,7 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
             m.put(columns[4], students.get(i).getFaculty());
             data.add(m);
         }
-        SimpleAdapter sAdapter = new SimpleAdapter(this, data, R.layout.listview_people_row,
+        SimpleAdapter sAdapter = new SimpleAdapter(SecondActivity.this, data, R.layout.listview_people_row,
                 columns, resourceIds);
         listViewStudents.setAdapter(sAdapter);
     }
@@ -129,7 +130,7 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void createFileIfNotExists() {
-        File file = new File(filePath);
+        File file = new File(FILE_PATH);
         if (!file.exists()) {
             try {
                 file.createNewFile();

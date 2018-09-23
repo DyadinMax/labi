@@ -1,4 +1,4 @@
-package statkovit.com.mpdis;
+package statkovit.com.mpdis.activities;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import java.io.IOException;
+
+import statkovit.com.mpdis.R;
 
 public class FifthActivity extends AppCompatActivity {
     private static final int GALLERY_REQUEST = 1;
