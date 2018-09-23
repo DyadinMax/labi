@@ -15,59 +15,60 @@ import java.io.IOException;
 
 import statkovit.com.mpdis.R;
 
-public class FifthActivity extends AppCompatActivity {
+public class FifthActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int GALLERY_REQUEST = 1;
-    private Button buttonPrev;
-    private Button buttonNext;
-    private Button buttonSelect;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fifth);
-        buttonPrev = findViewById(R.id.button8);
-        buttonNext = findViewById(R.id.button10);
-        buttonSelect = findViewById(R.id.button19);
-        buttonPrev.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent page = new Intent(FifthActivity.this, FourthActivity.class);
-                startActivity(page);
-            }
-        });
-        buttonNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent page = new Intent(FifthActivity.this, SeventhActivity.class);
-                startActivity(page);
-            }
-        });
-        buttonSelect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent photoIntent = new Intent(Intent.ACTION_PICK);
-                photoIntent.setType("image/*");
-                startActivityForResult(photoIntent, GALLERY_REQUEST);
-            }
-        });
+        initButtons();
+    }
+
+    private void initButtons() {
+        Button buttonPrev = findViewById(R.id.prevActivity);
+        Button buttonNext = findViewById(R.id.nextActivity);
+        Button buttonSelect = findViewById(R.id.selectPhoto);
+        buttonPrev.setOnClickListener(this);
+        buttonNext.setOnClickListener(this);
+        buttonSelect.setOnClickListener(this);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Bitmap bitmap = null;
-        ImageView imageView = findViewById(R.id.imageView);
-        switch (requestCode) {
-            case GALLERY_REQUEST:
-                if (resultCode == RESULT_OK) {
-                    Uri selectedImageUri = data.getData();
-                    try {
-                        bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImageUri);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    imageView.setImageBitmap(bitmap);
-                }
+        ImageView imageView = findViewById(R.id.image);
+        if (requestCode == GALLERY_REQUEST && resultCode == RESULT_OK && data != null) {
+            Uri selectedImageUri = data.getData();
+            try {
+                Bitmap bitmap = MediaStore.Images.Media
+                        .getBitmap(getContentResolver(), selectedImageUri);
+                imageView.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.prevActivity: {
+                Intent page = new Intent(FifthActivity.this, FourthActivity.class);
+                startActivity(page);
+                break;
+            }
+            case R.id.nextActivity: {
+                Intent page = new Intent(FifthActivity.this, SeventhActivity.class);
+                startActivity(page);
+                break;
+            }
+            case R.id.selectPhoto: {
+                Intent photoIntent = new Intent(Intent.ACTION_PICK);
+                photoIntent.setType("image/*");
+                startActivityForResult(photoIntent, GALLERY_REQUEST);
+                break;
+            }
         }
     }
 }
