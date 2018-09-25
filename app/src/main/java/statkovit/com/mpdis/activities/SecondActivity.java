@@ -66,7 +66,7 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-        initListView();
+        initListView(); // can not init in time of async task
         if (currentDatabaseSQLite) {
             databaseType.setText(R.string.sqlite);
         } else {
@@ -242,7 +242,7 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
     private static class insertStudentAsyncTask extends AsyncTask<Void, Void, Void> {
         private Student student;
 
-        public insertStudentAsyncTask(Student student) {
+        insertStudentAsyncTask(Student student) {
             this.student = student;
         }
 
